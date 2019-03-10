@@ -14,37 +14,47 @@ from copy import copy
 from tqdm import tqdm
 
 name_pulsar = input('Enter name pulsar: ')
+work_path = input('Enter work directory: ')
 num_iter = int(input('Enter numbers of iteration: '))
 step_iter = int(input('Enter step of iteration: '))
 
-os.system('rm res_iter_p_' + name_pulsar + '.txt')
+os.system('rm ' + work_path + os.sep + 'res_iter_p_' + name_pulsar + '.txt')
 
-with open(name_pulsar + '_start.par', 'r') as file:
+with open(work_path + os.sep + name_pulsar + '_start.par', 'r') as file:
     lines = file.readlines()
 start_period = copy(lines[3][:-1])
 
 for add in tqdm(range(1, num_iter, step_iter)):
     lines[3] = start_period + str(add) + '    1' + '\n'
 
-    with open(name_pulsar + '.par', 'w') as file:
+    with open(work_path + os.sep + name_pulsar + '.par', 'w') as file:
         for line in lines:
             file.write(line)
 
-    os.system('tempo ' + name_pulsar + '.tim > outtempo.log')
+    os.system('tempo -f'
+              + work_path + os.sep
+              + name_pulsar + '.par '
+              + work_path + os.sep
+              + name_pulsar + '.tim > '
+              + 'outtempo_' + name_pulsar + '.log')
     os.system(
-            '~/work/tempo/util/print_resid/./print_resid -mre > ' +
-            'resid_' + name_pulsar + '.ascii')
+            '~/work/tempo/util/print_resid/./print_resid -mre > '
+            + work_path + os.sep + 'resid_' + name_pulsar + '.ascii')
 
-    data = np.genfromtxt('resid_' + name_pulsar + '.ascii').T
+    data = np.genfromtxt(work_path +
+                         os.sep + 'resid_' + name_pulsar + '.ascii').T
 
-    with open('res_iter_p_' + name_pulsar + '.txt', 'a') as file:
+    with open(work_path + os.sep
+              + 'res_iter_p_' + name_pulsar + '.txt', 'a') as file:
         file.write(start_period[11:] + str(add) + ' ')
         file.write(str(np.std(data[1])))
         file.write('\n')
 
 
-data = np.genfromtxt('res_iter_p_' + name_pulsar + '.txt').T
+data = np.genfromtxt(work_path + os.sep
+                     + 'res_iter_p_' + name_pulsar + '.txt').T
 
 plt.close()
 plt.plot(data[1])
-plt.savefig('res_iter_p_' + name_pulsar + '.png', format='png', dpi=150)
+plt.savefig(work_path + os.sep
+            + 'res_iter_p_' + name_pulsar + '.png', format='png', dpi=150)
