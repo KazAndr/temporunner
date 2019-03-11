@@ -22,8 +22,8 @@ name_pulsar = input('Enter name pulsar: ')
 os.system('rm res_iter_p_coords_' + name_pulsar + '.txt')
 os.system('rm out_res_iter_p_coords_' + name_pulsar + '.log')
 
-add_period_list = list(range(0, 1000, 5))
-add_period_list = [i for i in add_period_list if str(i)[-1] != '0']
+add_period_list = list(range(100))
+# add_period_list = [i for i in add_period_list if str(i)[-1] != '0']
 
 with open(name_pulsar + '_start.par', 'r') as file:
     lines = file.readlines()
@@ -34,15 +34,15 @@ coords = c = SkyCoord(
         + lines[2][11:-1].lstrip(),
         unit=(u.deg, u.deg))
 
-ra_start = copy(coords.ra) - 12.5*u.arcmin
+ra_start = copy(coords.ra) - 5*u.arcmin
 dec_start = copy(coords.dec) - 12.5*u.arcmin
 start_period = copy(lines[3][:-1])
 
 for add in tqdm(add_period_list):
     ra = copy(ra_start)
 
-    for i in tqdm(range(150), leave='False'):
-        ra += 10*u.arcsec
+    for i in tqdm(range(120), leave='False'):
+        ra += 5*u.arcsec
         dec = copy(dec_start)
 
         for j in tqdm(range(150), leave='False'):
@@ -52,7 +52,7 @@ for add in tqdm(add_period_list):
 
             lines[2] = 'DECJ       ' + dec.to_string(sep=':') + '\n'
 
-            lines[3] = start_period + str(add) + '    1' + '\n'
+            lines[3] = start_period + str(add) + '0' + '    1' + '\n'
 
             lines[4] = 'F1       ' + '0.0' + '     1' + '\n'
 
