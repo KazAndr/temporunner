@@ -23,7 +23,7 @@ name_pulsar = input('Enter name pulsar: ')
 os.system('rm res_iter_p_coords_' + name_pulsar + '.txt')
 os.system('rm out_res_iter_p_coords_' + name_pulsar + '.log')
 
-add_period_list = list(range(100))
+add_period_list = list(range(1, 100))
 
 with open(name_pulsar + '_start.par', 'r') as file:
     lines = file.readlines()
@@ -38,8 +38,8 @@ ra_start = copy(coords.ra) - 5*u.arcmin
 dec_start = copy(coords.dec) - 12.5*u.arcmin
 start_period = copy(lines[3][:-1])
 
-ra_list = [ra_start + i*u.arcsec for i in range(5, 600, 5)]
-dec_list = [dec_start + i*u.arcsec for i in range(10, 1500, 10)]
+ra_list = [ra_start + i*u.arcsec for i in range(5, 605, 5)]
+dec_list = [dec_start + i*u.arcsec for i in range(10, 1510, 10)]
 
 elem_list = list(product(add_period_list, ra_list, dec_list))
 
