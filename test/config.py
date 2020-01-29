@@ -1,10 +1,10 @@
 name_pulsar = '1112'
-work_dir = '/home/andr/Yandex.Disk/1.Работа/TIMING/temporunner/test/'
+work_dir = ''
 period_range = 10
 period_step = 1
 ra_range = 5  # arcmin
 dec_range = 12.5  # arcmin
 ra_step_bf = 5  # arcsec
 dec_step_bf = 10  # arcsec
-ra_bruteforce = ra_range*2*60 + ra_step_bf  # arcsec
-dec_bruteforce = dec_range*2*60 + dec_step_bf  # arcsec
+ra_bruteforce = int(ra_range*2*60 + ra_step_bf)  # arcsec
+dec_bruteforce = int(dec_range*2*60 + dec_step_bf)  # arcsec
