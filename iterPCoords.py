@@ -66,7 +66,8 @@ for elements in tqdm(elem_list):
         for line in lines:
             file.write(line)
 
-    os.system(f'tempo {name_pulsar}.tim > outtempo.log')
+    os.system(
+        f'tempo -f {name_pulsar}.par {work_dir}{name_pulsar}.tim > outtempo.log')
     os.system(f'print_resid -mre > resid_{name_pulsar}.ascii')
 
     data = np.genfromtxt(f'resid_{name_pulsar}.ascii').T
