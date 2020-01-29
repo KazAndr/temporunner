@@ -21,12 +21,12 @@ from tqdm import tqdm
 from config import *
 
 
-os.system('rm res_iter_p_coords_' + name_pulsar + '.txt')
-os.system('rm out_res_iter_p_coords_' + name_pulsar + '.log')
+os.system(f'rm res_iter_p_coords_{name_pulsar}.txt')
+os.system(f'rm out_res_iter_p_coords_{name_pulsar}.log')
 
 add_period_list = list(range(period_step, period_range, period_step))
 
-with open(name_pulsar + '_start.par', 'r') as file:
+with open(f'{name_pulsar}_start.par', 'r') as file:
     lines = file.readlines()
 
 coords = c = SkyCoord(
@@ -54,26 +54,26 @@ dec_list = [dec_start + i*u.arcsec for i in range(
 elem_list = list(product(add_period_list, ra_list, dec_list))
 
 for elements in tqdm(elem_list):
-    lines[1] = 'RAJ       ' + elements[1].to_string(sep=':') + '\n'
+    lines[1] = f'RAJ       {elements[1].to_string(sep=":")}\n'
 
-    lines[2] = 'DECJ       ' + elements[2].to_string(sep=':') + '\n'
+    lines[2] = f'DECJ       {elements[2].to_string(sep=":"")}\n'
 
-    lines[3] = start_period + str(elements[0]) + '    1' + '\n'
+    lines[3] = f'start_period{str(elements[0])}    1\n'
 
-    lines[4] = 'F1       ' + '0.0' + '     1' + '\n'
+    lines[4] = f'F1       0.0     1\n'
 
-    with open(name_pulsar + '.par', 'w') as file:
+    with open(f'{name_pulsar}.par', 'w') as file:
         for line in lines:
             file.write(line)
 
-    os.system('tempo ' + name_pulsar + '.tim > outtempo.log')
+    os.system(f'tempo {name_pulsar}.tim > outtempo.log')
     os.system(
             '~/work/tempo/util/print_resid/./print_resid -mre > ' +
             'resid_' + name_pulsar + '.ascii')
 
-    data = np.genfromtxt('resid_' + name_pulsar + '.ascii').T
+    data = np.genfromtxt(f'resid_{name_pulsar}.ascii').T
 
-    with open('res_iter_p_coords_' + name_pulsar + '.txt', 'a') as file:
+    with open(f'res_iter_p_coords_{name_pulsar}.txt', 'a') as file:
         file.write(start_period[11:] + str(elements[0]) + ' ')
         file.write(elements[1].to_string(sep=':') + ' ')
         file.write(elements[2].to_string(sep=':') + ' ')
@@ -81,7 +81,7 @@ for elements in tqdm(elem_list):
         file.write('\n')
 
 
-data = np.genfromtxt('res_iter_p_coords_' + name_pulsar + '.txt').T
+data = np.genfromtxt(f'res_iter_p_coords_{name_pulsar}.txt').T
 plt.close()
 plt.plot(data[3])
-plt.savefig('res_iter_p_coords_' + name_pulsar + '.png', format='png', dpi=150)
+plt.savefig(f'res_iter_p_coords_{name_pulsar}.png', format='png', dpi=150)
