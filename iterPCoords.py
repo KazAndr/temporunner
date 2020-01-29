@@ -3,7 +3,7 @@
 """
 Created on Wed Dec 19 13:31:22 2018
 
-@author: andr
+@author: Kazantsev Andrey
 """
 
 import os
@@ -18,12 +18,13 @@ from astropy.coordinates import SkyCoord
 from astropy import units as u
 from tqdm import tqdm
 
-name_pulsar = input('Enter name pulsar: ')
+from config import *
+
 
 os.system('rm res_iter_p_coords_' + name_pulsar + '.txt')
 os.system('rm out_res_iter_p_coords_' + name_pulsar + '.log')
 
-add_period_list = list(range(1, 100))
+add_period_list = list(range(period_step, period_range, period_step))
 
 with open(name_pulsar + '_start.par', 'r') as file:
     lines = file.readlines()
@@ -34,12 +35,21 @@ coords = c = SkyCoord(
         + lines[2][11:-1].lstrip(),
         unit=(u.deg, u.deg))
 
-ra_start = copy(coords.ra) - 5*u.arcmin
-dec_start = copy(coords.dec) - 12.5*u.arcmin
+ra_start = copy(coords.ra) - ra_range*u.arcmin
+dec_start = copy(coords.dec) - dec_range*u.arcmin
 start_period = copy(lines[3][:-1])
 
-ra_list = [ra_start + i*u.arcsec for i in range(5, 605, 5)]
-dec_list = [dec_start + i*u.arcsec for i in range(10, 1510, 10)]
+ra_list = [ra_start + i*u.arcsec for i in range(
+    ra_step_bf,
+    ra_bruteforce,
+    ra_step_bf
+)]
+
+dec_list = [dec_start + i*u.arcsec for i in range(
+    dec_step_bf,
+    dec_bruteforce,
+    dec_step_bf
+)]
 
 elem_list = list(product(add_period_list, ra_list, dec_list))
 
