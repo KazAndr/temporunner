@@ -1,4 +1,5 @@
 name_pulsar = '1112'
+work_dir = '/home/andr/Yandex.Disk/1.Работа/TIMING/temporunner/test/'
 period_range = 10
 period_step = 1
 ra_range = 5  # arcmin
