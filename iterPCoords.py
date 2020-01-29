@@ -7,6 +7,7 @@ Created on Wed Dec 19 13:31:22 2018
 """
 
 import os
+import sys
 
 from copy import copy
 from itertools import product
@@ -17,6 +18,8 @@ import matplotlib.pyplot as plt
 from astropy.coordinates import SkyCoord
 from astropy import units as u
 from tqdm import tqdm
+
+sys.path.append('.')  # Добавляем локальный путь запуска файла для config
 
 from config import *
 
