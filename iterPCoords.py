@@ -56,7 +56,7 @@ elem_list = list(product(add_period_list, ra_list, dec_list))
 for elements in tqdm(elem_list):
     lines[1] = f'RAJ       {elements[1].to_string(sep=":")}\n'
 
-    lines[2] = f'DECJ       {elements[2].to_string(sep=":"")}\n'
+    lines[2] = f'DECJ       {elements[2].to_string(sep=":")}\n'
 
     lines[3] = f'start_period{str(elements[0])}    1\n'
 
