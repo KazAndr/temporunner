@@ -4,7 +4,7 @@
 *           Analysis of pulsar timing data            *
 *         TEMPO git version date:  2019-12-19         *
 *         TEMPO git version id:    c04b2e5            *
-*         Run time:  30-JAN-20  09:21:05 UTC          *
+*         Run time:  30-JAN-20  11:00:45 UTC          *
 *                                                     *
 *******************************************************
 
@@ -45,9 +45,9 @@ Z SR SRT              4865182.77       791922.69   4035137.2
 - LS LWA-SV          -1531155.54     -5045324.31   3579583.9
 P PO Pushchino         544919.20       373819.50       250.0
 
-Input data from 1112.tim,  Parameters from 1112.par
+Input data from /home/andr/Yandex.Disk/1.Работа/TIMING/tulbashev/original_data/1112+50/1112.tim,  Parameters from 1112.par
 Observatory data from /home/andr/work/tempo/obsys.dat                        
-Tempo command: tempo -f 1112.par 1112.tim
+Tempo command: tempo -f 1112.par /home/andr/Yandex.Disk/1.Работа/TIMING/tulbashev/original_data/1112+50/1112.tim
 
 
 Binary model: None     nbin:  0   nddm: 0
