@@ -61,7 +61,7 @@ for elements in tqdm(elem_list):
 
     lines[2] = f'DECJ       {elements[2].to_string(sep=":")}\n'
 
-    lines[3] = f'start_period{str(elements[0])}    1\n'
+    lines[3] = f'{start_period}{elements[0]}    1\n'
 
     lines[4] = f'F1       0.0     1\n'
 
