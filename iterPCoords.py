@@ -23,9 +23,11 @@ sys.path.append('.')  # Добавляем локальный путь запу�
 
 from config import *
 
-
+# Удаление результатов от предыдущей обработки
 os.system(f'rm res_iter_p_coords_{name_pulsar}.txt')
 os.system(f'rm out_res_iter_p_coords_{name_pulsar}.log')
+os.system(f'rm res_iter_p_coords_{name_pulsar}.png')
+
 
 add_period_list = list(range(period_step, period_range, period_step))
 
@@ -57,13 +59,13 @@ dec_list = [dec_start + i*u.arcsec for i in range(
 elem_list = list(product(add_period_list, ra_list, dec_list))
 
 for elements in tqdm(elem_list):
-    lines[1] = f'RAJ       {elements[1].to_string(sep=":")}\n'
+    lines[1] = f'RAJ       {elements[1].to_string(sep=":")}    {fit_coords}\n'
 
-    lines[2] = f'DECJ       {elements[2].to_string(sep=":")}\n'
+    lines[2] = f'DECJ       {elements[2].to_string(sep=":")}   {fit_coords}\n'
 
-    lines[3] = f'{start_period}{elements[0]}    1\n'
+    lines[3] = f'{start_period}{elements[0]}    {fit_period}\n'
 
-    lines[4] = f'F1       0.0     1\n'
+    lines[4] = f'F1       0.0     1\n'  # Производная подгонятеся всегда
 
     with open(f'{name_pulsar}.par', 'w') as file:
         for line in lines:

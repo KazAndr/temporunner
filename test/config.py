@@ -8,3 +8,5 @@ ra_step_bf = 5  # arcsec
 dec_step_bf = 10  # arcsec
 ra_bruteforce = int(ra_range*2*60 + ra_step_bf)  # arcsec
 dec_bruteforce = int(dec_range*2*60 + dec_step_bf)  # arcsec
+fit_period = '1'
+fit_coords = ''
