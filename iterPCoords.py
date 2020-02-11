@@ -29,20 +29,21 @@ os.system(f'rm out_res_iter_p_coords_{name_pulsar}.log')
 os.system(f'rm res_iter_p_coords_{name_pulsar}.png')
 
 
-add_period_list = list(range(period_step, period_range, period_step))
-
 with open(f'{name_pulsar}_start.par', 'r') as file:
     lines = file.readlines()
 
+ra_label, *ra_coord = lines[1].split()
+dec_label, *dec_coord = lines[2].split()
+period_label, *start_period = lines[3].split()
+
 coords = SkyCoord(
-        lines[1][11:-1].lstrip()
+        ra_coord[0]
         + ' '
-        + lines[2][11:-1].lstrip(),
+        + dec_coord[0],
         unit=(u.deg, u.deg))
 
 ra_start = copy(coords.ra) - ra_range*u.arcmin
 dec_start = copy(coords.dec) - dec_range*u.arcmin
-start_period = copy(lines[3][:-1])
 
 ra_list = [ra_start + i*u.arcsec for i in range(
     ra_step_bf,
@@ -56,16 +57,18 @@ dec_list = [dec_start + i*u.arcsec for i in range(
     dec_step_bf
 )]
 
+add_period_list = list(range(period_step, period_range, period_step))
+
 elem_list = list(product(add_period_list, ra_list, dec_list))
 
 for elements in tqdm(elem_list):
-    lines[1] = f'RAJ       {elements[1].to_string(sep=":")}    {fit_coords}\n'
+    lines[1] = f'RAJ        {elements[1].to_string(sep=":")}    {fit_coords}\n'
 
     lines[2] = f'DECJ       {elements[2].to_string(sep=":")}   {fit_coords}\n'
 
-    lines[3] = f'{start_period}{elements[0]}    {fit_period}\n'
+    lines[3] = f'F0         {start_period[0]}{elements[0]}    {fit_period}\n'
 
-    lines[4] = f'F1       0.0     1\n'  # Производная подгонятеся всегда
+    lines[4] = f'F1         0.0     1\n'  # Производная подгонятеся всегда
 
     with open(f'{name_pulsar}.par', 'w') as file:
         for line in lines:
@@ -78,7 +81,7 @@ for elements in tqdm(elem_list):
     data = np.genfromtxt(f'resid_{name_pulsar}.ascii').T
 
     with open(f'res_iter_p_coords_{name_pulsar}.txt', 'a') as file:
-        file.write(start_period[11:] + str(elements[0]) + ' ')
+        file.write(f'{start_period[0]}{elements[0]}' + ' ')
         file.write(elements[1].to_string(sep=':') + ' ')
         file.write(elements[2].to_string(sep=':') + ' ')
         file.write(str(np.std(data[1])))
