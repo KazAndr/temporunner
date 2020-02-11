@@ -34,7 +34,7 @@ add_period_list = list(range(period_step, period_range, period_step))
 with open(f'{name_pulsar}_start.par', 'r') as file:
     lines = file.readlines()
 
-coords = c = SkyCoord(
+coords = SkyCoord(
         lines[1][11:-1].lstrip()
         + ' '
         + lines[2][11:-1].lstrip(),
