@@ -59,7 +59,7 @@ dec_list = [dec_start + i*u.arcsec for i in range(
 
 add_period_list = range(period_step, period_range, period_step)
 
-elem_list = product(add_period_list, ra_list, dec_list)
+elem_list = list(product(add_period_list, ra_list, dec_list))
 
 for elements in tqdm(elem_list):
     lines[1] = f'RAJ        {elements[1].to_string(sep=":")}    {fit_coords}\n'
