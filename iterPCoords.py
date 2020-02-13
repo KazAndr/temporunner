@@ -42,16 +42,27 @@ coords = SkyCoord(
         + dec_coord[0],
         unit=(u.deg, u.deg))
 
+if dimension == 'arcsec':
+    dim = u.arcsec
+    ra_bruteforce = int(ra_range*2*60 + ra_step_bf)  # arcsec
+    dec_bruteforce = int(dec_range*2*60 + dec_step_bf)  # arcsec
+elif dimension == 'marcsec':
+    dim = u.milliarcsecond
+    ra_bruteforce = int(ra_range*2*60*100 + ra_step_bf)  # arcsec
+    dec_bruteforce = int(dec_range*2*60*100 + dec_step_bf)  # arcsec
+else:
+    print('Unknown dimension!')
+
 ra_start = copy(coords.ra) - ra_range*u.arcmin
 dec_start = copy(coords.dec) - dec_range*u.arcmin
 
-ra_list = [ra_start + i*u.arcsec for i in range(
+ra_list = [ra_start + i*dim for i in range(
     ra_step_bf,
     ra_bruteforce,
     ra_step_bf
 )]
 
-dec_list = [dec_start + i*u.arcsec for i in range(
+dec_list = [dec_start + i*dim for i in range(
     dec_step_bf,
     dec_bruteforce,
     dec_step_bf
