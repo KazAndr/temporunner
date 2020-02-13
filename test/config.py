@@ -10,12 +10,12 @@ period_range = 10
 period_step = 1
 
 # Setup range for brute force coordinates
-ra_range = 5  # arcmin
-dec_range = 12.5  # arcmin
+ra_range = 1  # arcmin
+dec_range = 1  # arcmin
 
 # Setup dimension and step for brute force coordinates
-dimension = 'arcsec'
-ra_step_bf = 5  # arcsec
+dimension = 'arcsec'  # arcsec or marcsec
+ra_step_bf = 10  # arcsec
 dec_step_bf = 10  # arcsec
 
 # on/off fitting params
