@@ -14,10 +14,10 @@ ra_range = 1  # arcmin
 dec_range = 1  # arcmin
 
 # Setup dimension and step for brute force coordinates
-dimension = 'arcsec'  # arcsec or marcsec
-ra_step_bf = 10  # arcsec
-dec_step_bf = 10  # arcsec
+dimension = 'marcsec'  # arcsec or marcsec
+ra_step_bf = 500  # arcsec
+dec_step_bf = 500  # arcsec
 
 # on/off fitting params
 fit_period = '1'
-fit_coords = ''
+fit_coords = '1'
