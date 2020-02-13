@@ -48,8 +48,8 @@ if dimension == 'arcsec':
     dec_bruteforce = int(dec_range*2*60 + dec_step_bf)  # arcsec
 elif dimension == 'marcsec':
     dim = u.milliarcsecond
-    ra_bruteforce = int(ra_range*2*60*100 + ra_step_bf)  # arcsec
-    dec_bruteforce = int(dec_range*2*60*100 + dec_step_bf)  # arcsec
+    ra_bruteforce = int(ra_range*2*60*100 + ra_step_bf)  # marcsec
+    dec_bruteforce = int(dec_range*2*60*100 + dec_step_bf)  # marcsec
 else:
     print('Unknown dimension!')
 
