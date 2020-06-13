@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 
 from astropy.coordinates import SkyCoord
 from astropy import units as u
+from astropy.coordinates import Angle
 from tqdm import tqdm
 
 sys.path.append('.')  # Добавляем локальный путь запуска файла для config
@@ -42,42 +43,38 @@ coords = SkyCoord(
         + dec_coord[0],
         unit=(u.deg, u.deg))
 
-if dimension == 'arcsec':
-    dim = u.arcsec
-    ra_bruteforce = int(ra_range*2*60 + ra_step_bf)  # arcsec
-    dec_bruteforce = int(dec_range*2*60 + dec_step_bf)  # arcsec
-elif dimension == 'marcsec':
-    dim = u.milliarcsecond
-    ra_bruteforce = int(ra_range*2*60*100 + ra_step_bf)  # marcsec
-    dec_bruteforce = int(dec_range*2*60*100 + dec_step_bf)  # marcsec
-else:
-    print('Unknown dimension!')
 
-ra_start = copy(coords.ra) - ra_range*u.arcmin
-dec_start = copy(coords.dec) - dec_range*u.arcmin
 
-ra_list = [ra_start + i*dim for i in range(
-    ra_step_bf,
-    ra_bruteforce,
-    ra_step_bf
-)]
+# Подгрузка диапазона итерации
+ra_range = Angle(ra_range)
+dec_range = Angle(dec_range)
 
-dec_list = [dec_start + i*dim for i in range(
-    dec_step_bf,
-    dec_bruteforce,
-    dec_step_bf
-)]
+ra_start = copy(coords.ra) - ra_range
+dec_start = copy(coords.dec) - dec_range
+ra_stop = copy(coords.ra) + ra_range
+dec_stop = copy(coords.dec) + dec_range
 
-add_period_list = range(period_step, period_range, period_step)
+# Подгрузка  шага итерации
+step_ra = Angle(step_ra)
+step_dec = Angle(step_dec)
 
-elem_list = list(product(add_period_list, ra_list, dec_list))
+# Вычисление количества необходимых итераций
+numbers_ra = int(round(((ra_stop-ra_start)/step_ra).value))
+numbers_dec = int(round(((dec_stop-dec_start)/step_dec).value))
+
+ra_brutforce = np.linspace(ra_start, ra_stop, numbers_ra)
+dec_brutforce = np.linspace(dec_start, dec_stop, numbers_dec)
+freq_brutforce = [f'{start_period[0]}{i}' for i in range(period_range)]
+
+
+elem_list = list(product(freq_brutforce, ra_brutforce, dec_brutforce))
 
 for elements in tqdm(elem_list):
     lines[1] = f'RAJ        {elements[1].to_string(sep=":")}    {fit_coords}\n'
 
     lines[2] = f'DECJ       {elements[2].to_string(sep=":")}   {fit_coords}\n'
 
-    lines[3] = f'F0         {start_period[0]}{elements[0]}    {fit_period}\n'
+    lines[3] = f'F0         {elements[0]}    {fit_period}\n'
 
     lines[4] = f'F1         0.0     1\n'  # Производная подгонятеся всегда
 
