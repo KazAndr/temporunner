@@ -89,7 +89,7 @@ for elements in tqdm(elem_list):
     data = np.genfromtxt(f'resid_{name_pulsar}.ascii').T
 
     with open(f'res_iter_p_coords_{name_pulsar}.txt', 'a') as file:
-        file.write(f'{start_period[0]}{elements[0]}' + ' ')
+        file.write(elements[0] + ' ')
         file.write(elements[1].to_string(sep=':') + ' ')
         file.write(elements[2].to_string(sep=':') + ' ')
         file.write(str(np.std(data[1])))
