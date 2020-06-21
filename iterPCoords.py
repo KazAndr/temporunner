@@ -8,9 +8,11 @@ Created on Wed Dec 19 13:31:22 2018
 
 import os
 import sys
+import subprocess
 
 from copy import copy
 from itertools import product
+from subprocess import Popen
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -82,9 +84,14 @@ for elements in tqdm(elem_list):
         for line in lines:
             file.write(line)
 
-    os.system(
-        f'tempo -f {name_pulsar}.par {work_dir}{name_pulsar}.tim > outtempo.log')
-    os.system(f'print_resid -mre > resid_{name_pulsar}.ascii')
+    cmd_tempo = (f'tempo -f {name_pulsar}.par {work_dir}{name_pulsar}.tim')
+    run_tempo = Popen(cmd_tempo.split(), stdout=subprocess.PIPE)
+    run_tempo.wait()
+
+    with open('resid_{name_pulsar}.ascii', 'w') as file:
+        cmd_save_resid = f'print_resid -mre'
+        run_save = Popen(cmd_save_resid.split(), stdout=file)
+        run_save.wait()
 
     data = np.genfromtxt(f'resid_{name_pulsar}.ascii').T
 
