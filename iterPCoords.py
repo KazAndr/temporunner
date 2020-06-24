@@ -88,7 +88,7 @@ for elements in tqdm(elem_list):
     run_tempo = Popen(cmd_tempo.split(), stdout=subprocess.PIPE)
     run_tempo.wait()
 
-    with open('resid_{name_pulsar}.ascii', 'w') as file:
+    with open(f'resid_{name_pulsar}.ascii', 'w') as file:
         cmd_save_resid = f'print_resid -mre'
         run_save = Popen(cmd_save_resid.split(), stdout=file)
         run_save.wait()
