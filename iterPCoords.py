@@ -78,6 +78,7 @@ for elements in tqdm(elem_list):
 
     lines[3] = f'F0         {elements[0]}    {fit_period}\n'
 
+
     lines[4] = f'F1         0.0     1\n'  # Производная подгонятеся всегда
 
     with open(f'{name_pulsar}.par', 'w') as file:
@@ -86,20 +87,20 @@ for elements in tqdm(elem_list):
 
     cmd_tempo = (f'tempo -f {name_pulsar}.par {work_dir}{name_pulsar}.tim')
     run_tempo = Popen(cmd_tempo.split(), stdout=subprocess.PIPE)
-    run_tempo.wait()
+   # run_tempo.wait()
 
     with open(f'resid_{name_pulsar}.ascii', 'w') as file:
         cmd_save_resid = f'print_resid -mre'
         run_save = Popen(cmd_save_resid.split(), stdout=file)
-        run_save.wait()
+        #run_save.wait()
 
-    data = np.genfromtxt(f'resid_{name_pulsar}.ascii').T
+    #data = np.genfromtxt(f'resid_{name_pulsar}.ascii').T
 
     with open(f'res_iter_p_coords_{name_pulsar}.txt', 'a') as file:
         file.write(elements[0] + ' ')
         file.write(elements[1].to_string(sep=':') + ' ')
         file.write(elements[2].to_string(sep=':') + ' ')
-        file.write(str(np.std(data[1])))
+        file.write('10000')
         file.write('\n')
 
 
