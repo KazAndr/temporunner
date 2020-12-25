@@ -76,7 +76,7 @@ for elements in tqdm(elem_list):
 
     lines[2] = f'DECJ       {elements[2].to_string(sep=":")}   {fit_coords}\n'
 
-    lines[3] = f'F0         {elements[0]}    {fit_period}\n'
+    lines[3] = f'F0         {elements[0]}    {fit_freq}\n'
 
     lines[4] = f'F1         0.0     1\n'  # Производная подгонятеся всегда
 
