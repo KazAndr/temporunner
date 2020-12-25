@@ -66,7 +66,7 @@ numbers_dec = int(round(((dec_stop-dec_start)/step_dec).value))
 
 ra_brutforce = np.linspace(ra_start, ra_stop, numbers_ra)
 dec_brutforce = np.linspace(dec_start, dec_stop, numbers_dec)
-freq_brutforce = [f'{start_period[0]}{i}' for i in range(period_range)]
+freq_brutforce = [f'{start_period[0]}{i}' for i in range(freq_range)]
 
 
 elem_list = list(product(freq_brutforce, ra_brutforce, dec_brutforce))
