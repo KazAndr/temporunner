@@ -1,0 +1,8 @@
+name_pulsar,start_freq,freq_range,ra_range,dec_range,step_ra,step_dec,fit_freq,fit_coords,work_dir
+1112+50,0.603,99,0h02m00.0s,0d30m00.0s,0h00m06.00s,0d00m40.00s,1,1,~/Yandex.Disk/1.Работа/TIMING/tulbashev/original_data/1112+50/
+1112+50,0.6037,99,0h01m00.0s,0d15m00.0s,0h00m03.00s,0d00m20.00s,1,1,~/Yandex.Disk/1.Работа/TIMING/tulbashev/original_data/1112+50/
+1112+50,0.60370,99,0h00m30.0s,0d07m30.0s,0h00m01.50s,0d00m10.00s,1,1,~/Yandex.Disk/1.Работа/TIMING/tulbashev/original_data/1112+50/
+1112+50,0.603704,99,0h00m15.0s,0d03m45.0s,0h00m00.75s,0d00m05.00s,1,1,~/Yandex.Disk/1.Работа/TIMING/tulbashev/original_data/1112+50/
+1112+50,0.6037044,99,0h00m07.5s,0d01m52.5s,0h00m00.375s,0d00m02.50s,1,1,~/Yandex.Disk/1.Работа/TIMING/tulbashev/original_data/1112+50/
+1112+50,0.603,99,0h00m07.5s,0d01m52.5s,0h00m00.375s,0d00m02.50s,1,1,~/Yandex.Disk/1.Работа/TIMING/tulbashev/original_data/1112+50/
+1112+50,0.6037044,99,0h02m00.0s,0d30m00.0s,0h00m06.0s,0d00m40.0s,1,1,~/Yandex.Disk/1.Работа/TIMING/tulbashev/original_data/1112+50/
